@@ -1,0 +1,15 @@
+asyncpg~=0.30.0
+passlib~=1.7.4
+fastapi~=0.115.12
+pydantic[email]~=2.11.4
+starlette~=0.46.2
+SQLAlchemy~=2.0.40
+PyJWT~=2.10.1
+alembic~=1.15.2
+uvicorn[standard]~=0.34.2
+pydantic_settings~=2.9.1
+pydantic-settings~=2.9.1
+aiokafka~=0.12.0
+cryptography~=44.0.3
+
+httpx~=0.28.1
