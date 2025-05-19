@@ -21,19 +21,21 @@ class AttendanceService:
     ) -> None:
         await self.repository.create_bulk_for_event(event_id, student_ids)
 
-    async def mark_student_attended(
+    async def change_attendance(
             self,
             event_id: UUID,
-            student_id: UUID
+            student_id: UUID,
+            attended: bool = False,
     ) -> None:
-        await self.repository.mark_attended(event_id, student_id)
-        await self.kafka_producer.send(
-            topic="student-attended",
-            message={
-                "student_id": str(student_id),
-                "event_id": str(event_id),
-            },
-        )
+        await self.repository.change_attendance(event_id, student_id, attended)
+        if attended is True:
+            await self.kafka_producer.send(
+                topic="student-attended",
+                message={
+                    "student_id": str(student_id),
+                    "event_id": str(event_id),
+                },
+            )
 
     async def get_event_attendance(
             self,

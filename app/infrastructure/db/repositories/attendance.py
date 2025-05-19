@@ -24,14 +24,19 @@ class AttendanceRepository:
         self.session.add_all(entries)
         await self.session.commit()
 
-    async def mark_attended(self, event_id: UUID, student_id: UUID) -> None:
+    async def change_attendance(
+            self,
+            event_id: UUID,
+            student_id: UUID,
+            attended: bool,
+    ) -> None:
         stmt = (
             update(AttendanceORM)
             .where(
                 AttendanceORM.event_id == event_id,
                 AttendanceORM.student_id == student_id,
             )
-            .values(attended=True, updated_at=datetime.utcnow())
+            .values(attended=attended, updated_at=datetime.utcnow())
         )
         await self.session.execute(stmt)
         await self.session.commit()

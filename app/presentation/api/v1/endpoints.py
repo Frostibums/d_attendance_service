@@ -37,4 +37,8 @@ async def mark_attended(
         data: MarkAttendanceIn,
         service: AttendanceService = Depends(get_attendance_service),
 ):
-    await service.mark_student_attended(data.event_id, data.student_id)
+    await service.change_attendance(
+        data.event_id,
+        data.student_id,
+        data.attended,
+    )
