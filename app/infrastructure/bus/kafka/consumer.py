@@ -69,7 +69,7 @@ def build_kafka_handlers(
     async def handle_student_recognized(message: dict):
         event_id = UUID(message["event_id"])
         student_id = UUID(message["student_id"])
-        await service.mark_student_attended(event_id, student_id)
+        await service.change_attendance(event_id, student_id, True)
 
     return {
         "event-started": handle_event_started,
